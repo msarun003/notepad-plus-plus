@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -85,6 +85,7 @@ class FunctionListPanel : public DockingDlgInterface {
 public:
 	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _ppEditView(NULL), _pTreeView(&_treeView),
 	_reloadTipStr(TEXT("Reload")), _sortTipStr(TEXT("Sort")) {};
+	~FunctionListPanel();
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
 
@@ -108,6 +109,7 @@ public:
 	// functionalities
 	void sortOrUnsort();
 	void reload();
+	void markEntry();
 	bool serialize(const generic_string & outputFilename = TEXT(""));
 	void addEntry(const TCHAR *node, const TCHAR *displayText, size_t pos);
 	void removeAllEntries();
@@ -124,10 +126,16 @@ private:
 	TreeView _treeView;
 	TreeView _treeViewSearchResult;
 
+	long _findLine = -1;
+	long _findEndLine = -1;
+	HTREEITEM _findItem;
+
 	generic_string _sortTipStr;
 	generic_string _reloadTipStr;
 
 	std::vector<foundInfo> _foundFuncInfos;
+
+	std::vector<generic_string*> posStrs;
 
 	ScintillaEditView **_ppEditView;
 	FunctionParsersManager _funcParserMgr;
@@ -143,5 +151,6 @@ private:
 	bool openSelection(const TreeView &treeView);
 	bool shouldSort();
 	void setSort(bool isEnabled);
+	void findMarkEntry(HTREEITEM htItem, LONG line);
 };
 

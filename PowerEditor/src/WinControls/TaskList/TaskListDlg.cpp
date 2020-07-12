@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2020 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -33,7 +33,7 @@
 
 int TaskListDlg::_instanceCount = 0;
 
-LRESULT CALLBACK hookProc(UINT nCode, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK hookProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	if ((nCode >= 0) && (wParam == WM_RBUTTONUP))
     {
@@ -85,7 +85,7 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 				i2set = 0;
 
 			_taskList.init(_hInst, _hSelf, _hImalist, nbTotal, i2set);
-			_taskList.setFont(TEXT("Verdana"), NppParameters::getInstance()->_dpiManager.scaleY(14));
+			_taskList.setFont(TEXT("Verdana"), NppParameters::getInstance()._dpiManager.scaleY(14));
 			_rc = _taskList.adjustSize();
 
 			reSizeTo(_rc);
@@ -93,12 +93,12 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 
 			_taskList.display(true);
 			hWndServer = _hSelf;
-			windowsVersion = NppParameters::getInstance()->getWinVersion();
+			windowsVersion = NppParameters::getInstance().getWinVersion();
 
 #ifndef WH_MOUSE_LL
 #define WH_MOUSE_LL 14
 #endif
-			_hHooker = ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProc, _hInst, 0);
+			_hHooker = ::SetWindowsHookEx(WH_MOUSE_LL, hookProc, _hInst, 0);
 			hook = _hHooker;
 			return FALSE;
 		}
