@@ -1,18 +1,32 @@
-Notepad++ v7.8.8 Enhancements & bug-fixes:
+Notepad++ v7.9 Enhancements & bug-fixes:
 
-1.  Fix accented characters in ANSI files not found in "find in files" and "replace in files" commands issues.
-2.  Add an option to improve rendering special Unicode characters by using Scintilla's DirectWrite technology.
-3.  Fix URL invisible issue in dark themes.
-4.  Fix the focus not on the opening new file issue.
-5.  Fix Workspace (Project panel), Folder As Workspace and function list keep focus issue after double clicking an item.
-6.  Add Ctrl+Backspace ability to delete word for comboboxes in Find/Replace dialog.
-7.  Add ability to find-all in selected text.
-8.  Fix wrong treatment of backslashes as escape sequences in autocompletion.
-9.  Enhance "Remove Empty Lines" command: Allow scope to be limited by an active selection.
-10. Fix loading of project & session files by drag & drop not working issue.
-11. Fix block selection cursor wrong positions after typing TAB.
-12. Add confirmation prompt to "Replace all in all opened documents" command to avoid PBKAC.
-
+1.  Add the ability to open the target file of a Shortcut (*.lnk).
+2.  Enhance side panels behaviour: close a single panel instead of the entire stack.
+3.  Fix Monitoring & document auto-update not scrolling to the end of the file with Word wrap enabled issue.
+4.  Fix mouse cursor flicker while hovering URLs.
+5.  Add back hovered blue underlined URLs.
+6.  Enhance C++, Perl, Python parsers and add VHDL in Function List. 
+7.  Improve some ambiguous commands naming in Shortcut Mapper.
+8.  Add an option to prevent right click from canceling selection.
+9.  Add ability to sort lines randomly.
+10. Fix "Close All BUT this" looses current document data issue.
+11. Allow user to start making a stream selection and then change to column block (by pressing ALT key).
+12. Add word wrap option to find results context menu.
+13. Add keyboard navigation ability to Column Editor.
+14. Add keyboard shortcut ability to Projects, Folder as Workspace and Function List for switching among these panels.
+15. Enable project panels toggle from menu.
+16. Enhance Folder as Workspace to restore latest selected item of last session on Notepad++ startup.
+17. Fix inaccurate line margin update with word wrap enabled.
+18. Fix Find previous/next commands not scroll vertically to show match result issue (with word wrap disabled).
+19. Fix column key sort with col block starting in col1 bug.
+20. Add confirmation preference for Replace All in All Opened Documents operation.
+21. Add Escape keypress in functionlist searchbox to clear its text.
+22. Add RTL capability to localized messageboxes.
+23. Make (Find) dlgAlwaysVisible a true Preference setting.
+24. Fix sorting by column key using incorrect key values.
+25. Add search scope to Find window status bar output.
+26. Fix false hit result in Find in Finder.
+27. Prevent redundant line data copy in Finder.
 
 Included plugins:
 

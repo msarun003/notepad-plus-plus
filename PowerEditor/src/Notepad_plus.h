@@ -61,8 +61,6 @@
 #define MENU 0x01
 #define TOOLBAR 0x02
 
-#define URL_REG_EXPR "[A-Za-z]+://[A-Za-z0-9_\\-\\+~.:?&@=/%#,;\\{\\}\\(\\)\\[\\]\\|\\*\\!\\\\]+"
-
 enum FileTransferMode {
 	TransferClone		= 0x01,
 	TransferMove		= 0x02
@@ -261,6 +259,9 @@ public:
 		return _pluginsAdminDlg.getPluginListVerStr();
 	};
 
+	void minimizeDialogs();
+	void restoreMinimizeDialogs();
+
 private:
 	Notepad_plus_Window *_pPublicInterface = nullptr;
     Window *_pMainWindow = nullptr;
@@ -293,6 +294,7 @@ private:
 
 	ToolBar	_toolBar;
 	IconList _docTabIconList;
+	IconList _docTabIconListAlt;
 
     StatusBar _statusBar;
 	bool _toReduceTabBar = false;
@@ -387,10 +389,6 @@ private:
                                               // and "Enable session snapshot and periodic backup" is not enabled
                                               // then WM_ENDSESSION is send with wParam == FALSE
                                               // in this case this boolean is set true, so Notepad++ will quit and its current session will be saved 
-
-    bool _isWorkspaceFileLoadedFromCommandLine = false; // Set during Notepad_plus::doOpen if workspace file is opened.
-                                                        // But it is only evaluated during startup, when doOpen
-                                                        // has been called while command line interpretation.
 	ScintillaCtrls _scintillaCtrls4Plugins;
 
 	std::vector<std::pair<int, int> > _hideLinesMarks;
@@ -407,6 +405,8 @@ private:
 
 	DocumentMap* _pDocMap = nullptr;
 	FunctionListPanel* _pFuncList = nullptr;
+
+	std::vector<HWND> _sysTrayHiddenHwnd;
 
 	BOOL notify(SCNotification *notification);
 	void command(int id);
@@ -570,6 +570,7 @@ private:
 	void showPathCompletion();
 
 	//void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
+	void setCodePageForInvisibleView(Buffer const* pBuffer);
 	bool replaceInOpenedFiles();
 	bool findInOpenedFiles();
 	bool findInCurrentFile(bool isEntireDoc);
@@ -607,10 +608,11 @@ private:
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
 	void launchFileSwitcherPanel();
+	void checkProjectMenuItem();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
-	void launchFileBrowser(const std::vector<generic_string> & folders, bool fromScratch = false);
+	void launchFileBrowser(const std::vector<generic_string> & folders, const generic_string& selectedItemPath, bool fromScratch = false);
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);
@@ -638,6 +640,7 @@ private:
 	};
 
 	void monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStarting);
+	void updateCommandShortcuts();
 };
 
 
